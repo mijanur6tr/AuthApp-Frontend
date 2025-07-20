@@ -7,18 +7,18 @@ import { ContextStore } from "../context/contextStore";
 
 export const SignUp = () => {
 
- const {url,setToken} = useContext(ContextStore)
+  const { url, setToken, login} = useContext(ContextStore)
   const navigate = useNavigate()
   const {
     register,
     handleSubmit,
     formState: { errors },
-   
+
   } = useForm();
 
   const onSubmit = async (data) => {
     try {
-      const res = await axios.post(url+"/api/user/signup", data);
+      const res = await axios.post(url + "/api/user/signup", data);
       if (res.data.success) {
         setToken(res.data.token)
         localStorage.setItem("token", res.data.token);
@@ -34,8 +34,8 @@ export const SignUp = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-white px-4">
-      <div className="w-full max-w-xl bg-white shadow-lg rounded-xl p-8">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-white px-4 ">
+      <div className="w-full max-w-xl bg-white shadow-lg rounded-xl p-8 mt-5">
         <h1 className="text-3xl font-bold mb-6 text-center text-blue-600">Create an Account</h1>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
@@ -105,9 +105,32 @@ export const SignUp = () => {
 
           <p className="text-sm text-center text-gray-600 mt-3">
             Already have an account?{" "}
-            <span onClick={()=>navigate("/login")} className="text-blue-500 hover:underline cursor-pointer">Sign in</span>
+            <span onClick={() => navigate("/login")} className="text-blue-500 hover:underline cursor-pointer">Sign in</span>
           </p>
         </form>
+
+       
+        <div className="pt-4">
+
+          <div className="flex items-center gap-2 mb-4">
+            <div className="flex-grow h-px bg-gray-300"></div>
+            <span className="text-gray-500 text-sm">OR</span>
+            <div className="flex-grow h-px bg-gray-300"></div>
+          </div>
+          <button
+            onClick={() => login()}
+            className="w-full flex items-center justify-center gap-3 border border-gray-300 rounded-md py-2 px-4 hover:shadow-md transition duration-200 bg-white text-gray-700 font-medium"
+          >
+            <img
+              src="https://www.svgrepo.com/show/475656/google-color.svg"
+              alt="Google"
+              className="w-5 h-5"
+            />
+            Continue with Google
+          </button>
+        </div>
+
+
       </div>
     </div>
   );

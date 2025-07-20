@@ -5,18 +5,18 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { ContextStore } from "../context/contextStore";
 
+
 export const SignIn = () => {
-  const {setToken} = useContext(ContextStore)
+
+  const { setToken ,login} = useContext(ContextStore)
   const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
-    
   } = useForm();
 
   const onSubmit = async (data) => {
-    
     try {
       console.log(data)
       const res = await axios.post("http://localhost:3000/api/user/login", data);
@@ -33,6 +33,8 @@ export const SignIn = () => {
       toast.error(error.response?.data?.message || "Error in log in");
     }
   };
+
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-white px-4">
@@ -79,10 +81,35 @@ export const SignIn = () => {
 
           <p className="text-sm text-center text-gray-600 mt-3">
             Don't have an account?{" "}
-            <span onClick={()=>navigate("/signup")} className="text-green-500 hover:underline cursor-pointer">Create One</span>
+            <span onClick={() => navigate("/signup")} className="text-green-500 hover:underline cursor-pointer">Create One</span>
           </p>
         </form>
+
+        <div className="pt-4">
+
+          <div className="flex items-center gap-2 mb-4">
+            <div className="flex-grow h-px bg-gray-300"></div>
+            <span className="text-gray-500 text-sm">OR</span>
+            <div className="flex-grow h-px bg-gray-300"></div>
+          </div>
+          <button
+            onClick={() => login()}
+            className="w-full flex items-center justify-center gap-3 border border-gray-300 rounded-md py-2 px-4 hover:shadow-md transition duration-200 bg-white text-gray-700 font-medium"
+          >
+            <img
+              src="https://www.svgrepo.com/show/475656/google-color.svg"
+              alt="Google"
+              className="w-5 h-5"
+            />
+            Continue with Google
+          </button>
+        </div>
+
+
       </div>
     </div>
   );
 };
+
+
+

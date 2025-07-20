@@ -9,10 +9,10 @@ export const HomePage = (props) => {
   const {token} = useContext(ContextStore)
   const navigate = useNavigate()
   return(
-    <div className='flex justify-center items-center min-h-[60vh]'>
-      {token? <Home/>: <div>
-        <span onClick={()=>navigate("/login")} className='text-blue-500'>Sign in</span> to see the content.
-      </div> }
+    <div className='flex justify-center items-center min-h-[80vh]'>
+      {token? <Home/>: (<div className='text-3xl'>
+        <span onClick={()=>navigate("/login")} className='text-blue-500 '>Sign in</span> to see the content.
+      </div> )}
         
         
     </div>
